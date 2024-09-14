@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riziková aplikace</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            margin: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Posouzení rizika</h1>
+    <label for="dopad">Dopad (1-5):</label>
+    <input type="number" id="dopad" min="1" max="5" required>
+    <br>
+    <label for="pravdepodobnost">Pravděpodobnost (1-5):</label>
+    <input type="number" id="pravdepodobnost" min="1" max="5" required>
+    <br>
+    <button onclick="vypocitatRiziko()">Vypočítat riziko</button>
+    <h2 id="vysledek"></h2>
+
+    <script>
+        function vypocitatRiziko() {
+            let dopad = parseInt(document.getElementById('dopad').value);
+            let pravdepodobnost = parseInt(document.getElementById('pravdepodobnost').value);
+            
+            if (!dopad || !pravdepodobnost || dopad < 1 || dopad > 5 || pravdepodobnost < 1 || pravdepodobnost > 5) {
+                alert('Zadej prosím správné hodnoty (1-5).');
+                return;
+            }
+
+            let riziko = dopad * pravdepodobnost;
+            let kategorie = '';
+
+            if (riziko <= 5) {
+                kategorie = 'Nízké riziko';
+            } else if (riziko <= 15) {
+                kategorie = 'Střední riziko';
+            } else {
+                kategorie = 'Vysoké riziko';
+            }
+
+            document.getElementById('vysledek').textContent = 'Riziko: ' + riziko + ' (' + kategorie + ')';
+        }
+    </script>
+</body>
+</html>
